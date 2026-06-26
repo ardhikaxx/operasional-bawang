@@ -2,9 +2,17 @@ document.addEventListener('DOMContentLoaded', function () {
     // Sidebar toggle for mobile/responsive
     const sidebarToggle = document.getElementById('sidebar-toggle');
     const sidebar = document.querySelector('.sidebar');
+    const backdrop = document.getElementById('sidebar-backdrop');
     if (sidebarToggle && sidebar) {
         sidebarToggle.addEventListener('click', () => {
             sidebar.classList.toggle('show');
+            if (backdrop) backdrop.classList.toggle('show');
+        });
+    }
+    if (backdrop && sidebar) {
+        backdrop.addEventListener('click', () => {
+            sidebar.classList.remove('show');
+            backdrop.classList.remove('show');
         });
     }
 

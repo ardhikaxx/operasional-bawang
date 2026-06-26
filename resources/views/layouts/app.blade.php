@@ -26,6 +26,7 @@
 <body>
 
     @include('layouts._sidebar')
+    <div id="sidebar-backdrop" class="sidebar-backdrop d-lg-none"></div>
 
     <div class="main-content">
         @include('layouts._navbar')

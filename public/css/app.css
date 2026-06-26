@@ -469,9 +469,32 @@ footer.footer {
     overflow: hidden;
 }
 
+/* Sidebar Backdrop for Mobile */
+.sidebar-backdrop {
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0, 0, 0, 0.55);
+    backdrop-filter: blur(3px);
+    z-index: 1035;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.25s ease;
+}
+.sidebar-backdrop.show {
+    opacity: 1;
+    pointer-events: auto;
+}
+
 /* Responsive */
 @media (max-width: 991.98px) {
     .sidebar { transform: translateX(-100%); }
     .sidebar.show { transform: translateX(0); }
     .main-content { margin-left: 0; }
+}
+
+@media (max-width: 575.98px) {
+    .topbar { padding: 10px 14px; }
+    .content-wrapper { padding: 16px; }
+    .stat-card h3 { font-size: 1.35rem; }
+    .table-custom td, .table-custom th { padding: 10px 12px; }
 }
