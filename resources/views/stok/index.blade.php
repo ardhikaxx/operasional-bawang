@@ -8,11 +8,11 @@
         <p class="text-muted small mb-0">Pantau ketersediaan stok riil, lakukan penyesuaian/koreksi aktual, atau catat barang keluar gudang.</p>
     </div>
     <div>
-        <a href="{{ route('stok.histori') }}" class="btn btn-outline-primary btn-sm me-2"><i class="fas fa-history me-1"></i> Histori Stok</a>
-        <button type="button" class="btn btn-warning btn-sm fw-bold me-1 text-dark" data-bs-toggle="modal" data-bs-target="#modalKurangiStok">
+        <a href="{{ route('stok.histori') }}" class="btn btn-outline-secondary btn-sm me-2"><i class="fas fa-history me-1"></i> Histori Stok</a>
+        <button type="button" class="btn btn-primary btn-sm fw-semibold me-1 text-white shadow-sm" data-bs-toggle="modal" data-bs-target="#modalKurangiStok">
             <i class="fas fa-minus-circle me-1"></i> Catat Barang Keluar
         </button>
-        <button type="button" class="btn btn-secondary btn-sm" data-bs-toggle="modal" data-bs-target="#modalKoreksiStok">
+        <button type="button" class="btn btn-primary btn-sm fw-semibold text-white shadow-sm" data-bs-toggle="modal" data-bs-target="#modalKoreksiStok">
             <i class="fas fa-scale-balanced me-1"></i> Koreksi Opname
         </button>
     </div>
@@ -101,9 +101,9 @@
         <div class="modal-content">
             <form action="{{ route('stok.kurangi') }}" method="POST">
                 @csrf
-                <div class="modal-header bg-warning text-dark">
+                <div class="modal-header bg-primary text-white">
                     <h5 class="modal-title fs-6 fw-bold"><i class="fas fa-minus-circle me-2"></i>Catat Distribusi/Penjualan (Barang Keluar)</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
                 </div>
                 <div class="modal-body p-4">
                     <div class="mb-3">
@@ -126,7 +126,7 @@
                 </div>
                 <div class="modal-footer bg-light">
                     <button type="button" class="btn btn-light border" data-bs-dismiss="modal">Batal</button>
-                    <button type="submit" class="btn btn-warning fw-bold">Simpan Pengurangan</button>
+                    <button type="submit" class="btn btn-primary fw-bold text-white">Simpan Pengurangan</button>
                 </div>
             </form>
         </div>
@@ -139,7 +139,7 @@
         <div class="modal-content">
             <form action="{{ route('stok.koreksi') }}" method="POST">
                 @csrf
-                <div class="modal-header bg-secondary text-white">
+                <div class="modal-header bg-primary text-white">
                     <h5 class="modal-title fs-6 fw-bold"><i class="fas fa-scale-balanced me-2"></i>Koreksi Stock Opname (Penyesuaian Manual)</h5>
                     <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
                 </div>
@@ -165,7 +165,7 @@
                 </div>
                 <div class="modal-footer bg-light">
                     <button type="button" class="btn btn-light border" data-bs-dismiss="modal">Batal</button>
-                    <button type="submit" class="btn btn-secondary fw-bold">Update Stok Aktual</button>
+                    <button type="submit" class="btn btn-primary fw-bold text-white">Update Stok Aktual</button>
                 </div>
             </form>
         </div>

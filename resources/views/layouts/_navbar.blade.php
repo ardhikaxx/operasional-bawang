@@ -28,7 +28,7 @@
                 <button class="btn btn-link text-secondary p-1 position-relative border-0 text-decoration-none d-flex align-items-center" type="button" data-bs-toggle="dropdown" aria-expanded="false" style="transition: color .15s;">
                     <i class="fas fa-bell fs-5"></i>
                     @if($totalAlert > 0)
-                        <span class="position-absolute top-0 start-100 translate-middle p-1 bg-danger border border-2 border-white rounded-circle"></span>
+                        <span class="position-absolute top-0 inset-s-100 translate-middle p-1 bg-danger border border-white rounded-circle"></span>
                     @endif
                 </button>
                 <ul class="dropdown-menu dropdown-menu-end shadow-lg border border-light rounded-3 p-0 mt-2" style="width: 300px;">
