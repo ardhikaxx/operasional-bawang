@@ -96,8 +96,8 @@ class LaporanService
 
     public function getLaporanLabaRugi(Request $request)
     {
-        $bulan = $request->input('bulan', now()->month);
-        $tahun = $request->input('tahun', now()->year);
+        $bulan = (int) $request->input('bulan', now()->month);
+        $tahun = (int) $request->input('tahun', now()->year);
 
         $produksis = Produksi::with('produk')
             ->whereMonth('tanggal_produksi', $bulan)
