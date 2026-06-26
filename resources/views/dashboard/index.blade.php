@@ -8,8 +8,8 @@
         <p class="text-muted small mb-0">Selamat datang kembali, <strong>{{ auth()->user()->name }}</strong>. Pantau performa produksi dan keuangan usaha Anda.</p>
     </div>
     <div>
-        <a href="{{ route('produksi.create') }}" class="btn btn-primary btn-sm me-2"><i class="fas fa-plus me-1"></i> Input Produksi</a>
-        <a href="{{ route('pengeluaran.create') }}" class="btn btn-outline-danger btn-sm"><i class="fas fa-minus me-1"></i> Input Biaya</a>
+        <a href="{{ route('produksi.create') }}" class="btn btn-primary btn-sm fw-semibold me-2 text-white shadow-sm"><i class="fas fa-plus me-1"></i> Input Produksi</a>
+        <a href="{{ route('pengeluaran.create') }}" class="btn btn-danger btn-sm fw-semibold text-white shadow-sm"><i class="fas fa-minus me-1"></i> Input Biaya</a>
     </div>
 </div>
 
