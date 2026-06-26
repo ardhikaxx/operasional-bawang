@@ -13,11 +13,11 @@
     <form method="POST" action="{{ route('login') }}" id="form-login">
         @csrf
         <div class="mb-3">
-            <label class="form-label small fw-semibold">Email / Username <span class="text-danger">*</span></label>
+            <label class="form-label small fw-semibold">Email <span class="text-danger">*</span></label>
             <div class="input-group">
-                <span class="input-group-text bg-light border-end-0"><i class="fas fa-user text-muted"></i></span>
-                <input type="text" name="login" class="form-control border-start-0 @error('login') is-invalid @enderror" value="{{ old('login') }}" placeholder="masukkan email atau username..." required autofocus>
-                @error('login')
+                <span class="input-group-text bg-light border-end-0"><i class="fas fa-envelope text-muted"></i></span>
+                <input type="text" name="email" class="form-control border-start-0 @error('email') is-invalid @enderror" value="{{ old('email') }}" placeholder="masukkan email..." autofocus>
+                @error('email')
                     <div class="invalid-feedback d-block">{{ $message }}</div>
                 @enderror
             </div>
@@ -27,7 +27,7 @@
             <label class="form-label small fw-semibold">Password <span class="text-danger">*</span></label>
             <div class="input-group">
                 <span class="input-group-text bg-light border-end-0"><i class="fas fa-lock text-muted"></i></span>
-                <input type="password" name="password" id="login-password" class="form-control border-start-0 border-end-0 @error('password') is-invalid @enderror" placeholder="masukkan password..." required>
+                <input type="password" name="password" id="login-password" class="form-control border-start-0 border-end-0 @error('password') is-invalid @enderror" placeholder="masukkan password...">
                 <button type="button" class="btn btn-outline-secondary toggle-password" data-target="#login-password"><i class="fas fa-eye"></i></button>
             </div>
             @error('password')

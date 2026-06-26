@@ -98,7 +98,7 @@
                         @forelse($pengeluaranPerKategori as $item)
                         <tr>
                             <td class="fw-semibold">{{ $item['nama_kategori'] }}</td>
-                            <td class="text-end fw-bold text-danger">Rp {{ number_format($item['total'], 0, ',', '.') }}</td>
+                            <td class="text-end fw-bold text-danger">Rp {{ number_format($item['subtotal'] ?? $item['total'] ?? 0, 0, ',', '.') }}</td>
                         </tr>
                         @empty
                         <tr>

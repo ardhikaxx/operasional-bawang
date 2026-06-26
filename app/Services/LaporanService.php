@@ -112,6 +112,7 @@ class LaporanService
                 'satuan'         => $produk->satuan->nama_satuan ?? 'unit',
                 'harga_estimasi' => $produk->harga_estimasi,
                 'subtotal'       => $subtotal,
+                'total'          => $subtotal,
             ];
 
             $totalPendapatan += $subtotal;
@@ -132,6 +133,7 @@ class LaporanService
             $pengeluaranPerKategori[] = [
                 'nama_kategori' => $kat->nama_kategori ?? 'Lainnya',
                 'subtotal'      => $subtotal,
+                'total'         => $subtotal,
             ];
 
             $totalPengeluaran += $subtotal;

@@ -21,18 +21,20 @@ class AuthController extends Controller
 
     public function login(Request $request)
     {
-        $request->validate([
-            'login'    => 'required|string',
-            'password' => 'required|string',
-        ], [
-            'login.required'    => 'Email atau username wajib diisi.',
-            'password.required' => 'Password wajib diisi.',
-        ]);
+        if (empty($request->email)) {
+            return back()->with('error', 'Email tidak boleh kosong.')->withInput();
+        }
 
-        $loginType = filter_var($request->login, FILTER_VALIDATE_EMAIL) ? 'email' : 'username';
+        if (!filter_var($request->email, FILTER_VALIDATE_EMAIL)) {
+            return back()->with('error', 'Format email tidak valid.')->withInput();
+        }
+
+        if (empty($request->password)) {
+            return back()->with('error', 'Password tidak boleh kosong.')->withInput();
+        }
 
         $credentials = [
-            $loginType  => $request->login,
+            'email'     => $request->email,
             'password'  => $request->password,
             'is_active' => true,
         ];
@@ -40,12 +42,15 @@ class AuthController extends Controller
         if (Auth::attempt($credentials, $request->boolean('remember'))) {
             $request->session()->regenerate();
             $this->auditLog->catat('Auth', 'login', 'User berhasil login ke sistem');
-            return redirect()->route('dashboard')->with('success', 'Selamat datang kembali, ' . Auth::user()->name . '!');
+            
+            if (Auth::user()->role === 'owner') {
+                return redirect()->route('dashboard')->with('success', 'Login berhasil sebagai admin.');
+            }
+
+            return redirect()->route('dashboard')->with('success', 'Login berhasil.');
         }
 
-        throw ValidationException::withMessages([
-            'login' => 'Kombinasi email/username dan password tidak sesuai atau akun dinonaktifkan.',
-        ]);
+        return back()->with('error', 'Email atau password tidak valid.')->withInput();
     }
 
     public function logout(Request $request)
