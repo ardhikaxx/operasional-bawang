@@ -115,7 +115,22 @@
     </div>
 </div>
 
-<!-- Row 3: Tables & Alerts -->
+<!-- Row 3: Financial Bar Chart -->
+<div class="row g-3 mb-4">
+    <div class="col-12">
+        <div class="card h-100 mb-0">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <span><i class="fas fa-chart-bar me-2 text-success"></i>Perbandingan Valuasi Produksi vs Biaya Operasional (6 Bulan Terakhir)</span>
+                <span class="badge bg-success bg-opacity-10 text-success">Arus Kas & Profitabilitas</span>
+            </div>
+            <div class="card-body p-4">
+                <canvas id="chartKeuangan" style="max-height: 320px;"></canvas>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Row 4: Tables & Alerts -->
 <div class="row g-3">
     <div class="col-lg-8">
         <div class="card mb-0">
@@ -199,29 +214,51 @@
 
 @push('scripts')
 <script>
-document.addEventListener('DOMContentLoaded', function() {
+function renderDashboardCharts() {
     // Line Chart Produksi
     const ctxProd = document.getElementById('chartProduksi');
-    if (ctxProd) {
+    if (ctxProd && !Chart.getChart(ctxProd)) {
         new Chart(ctxProd, {
             type: 'line',
             data: {
                 labels: {!! json_encode($grafikProduksi->pluck('tanggal')->map(fn($d) => \Carbon\Carbon::parse($d)->format('d/m'))) !!},
-                datasets: [{
-                    label: 'Produksi Bersih (Unit)',
-                    data: {!! json_encode($grafikProduksi->pluck('total')) !!},
-                    borderColor: '#1B6B3A',
-                    backgroundColor: 'rgba(27, 107, 58, 0.1)',
-                    borderWidth: 2,
-                    fill: true,
-                    tension: 0.3,
-                    pointBackgroundColor: '#1B6B3A'
-                }]
+                datasets: [
+                    {
+                        label: 'Produksi Bersih',
+                        data: {!! json_encode($grafikProduksi->pluck('bersih')) !!},
+                        borderColor: '#1B6B3A',
+                        backgroundColor: 'rgba(27, 107, 58, 0.15)',
+                        borderWidth: 2.5,
+                        fill: true,
+                        tension: 0.3,
+                        pointBackgroundColor: '#1B6B3A'
+                    },
+                    {
+                        label: 'Barang Gagal (Sortiran)',
+                        data: {!! json_encode($grafikProduksi->pluck('gagal')) !!},
+                        borderColor: '#DC3545',
+                        backgroundColor: 'transparent',
+                        borderWidth: 2,
+                        borderDash: [5, 5],
+                        fill: false,
+                        tension: 0.3,
+                        pointBackgroundColor: '#DC3545'
+                    }
+                ]
             },
             options: {
                 responsive: true,
                 maintainAspectRatio: false,
-                plugins: { legend: { display: false } },
+                plugins: {
+                    legend: { position: 'top' },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                return context.dataset.label + ': ' + new Intl.NumberFormat('id-ID').format(context.raw || 0) + ' unit';
+                            }
+                        }
+                    }
+                },
                 scales: {
                     y: { beginAtZero: true }
                 }
@@ -231,7 +268,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Doughnut Chart Pengeluaran
     const ctxExp = document.getElementById('chartPengeluaran');
-    if (ctxExp) {
+    if (ctxExp && !Chart.getChart(ctxExp)) {
         new Chart(ctxExp, {
             type: 'doughnut',
             data: {
@@ -246,11 +283,77 @@ document.addEventListener('DOMContentLoaded', function() {
                 responsive: true,
                 maintainAspectRatio: false,
                 plugins: {
-                    legend: { position: 'bottom', labels: { boxWidth: 12, font: { size: 11 } } }
+                    legend: { position: 'bottom', labels: { boxWidth: 12, font: { size: 11 } } },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                let val = context.raw || 0;
+                                return context.label + ': Rp ' + new Intl.NumberFormat('id-ID').format(val);
+                            }
+                        }
+                    }
                 }
             }
         });
     }
-});
+
+    // Bar Chart Keuangan (Valuasi vs Biaya)
+    const ctxFin = document.getElementById('chartKeuangan');
+    if (ctxFin && !Chart.getChart(ctxFin)) {
+        new Chart(ctxFin, {
+            type: 'bar',
+            data: {
+                labels: {!! json_encode($grafikKeuangan->pluck('bulan')) !!},
+                datasets: [
+                    {
+                        label: 'Estimasi Valuasi Produksi',
+                        data: {!! json_encode($grafikKeuangan->pluck('pemasukan')) !!},
+                        backgroundColor: '#1B6B3A',
+                        borderRadius: 4
+                    },
+                    {
+                        label: 'Biaya Operasional',
+                        data: {!! json_encode($grafikKeuangan->pluck('pengeluaran')) !!},
+                        backgroundColor: '#DC3545',
+                        borderRadius: 4
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { position: 'top' },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                let val = context.raw || 0;
+                                return context.dataset.label + ': Rp ' + new Intl.NumberFormat('id-ID').format(val);
+                            }
+                        }
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            callback: function(value) {
+                                if (value >= 1000000) return 'Rp ' + (value/1000000).toFixed(1) + 'Jt';
+                                if (value >= 1000) return 'Rp ' + (value/1000).toFixed(0) + 'Rb';
+                                return 'Rp ' + value;
+                            }
+                        }
+                    }
+                }
+            }
+        });
+    }
+}
+
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', renderDashboardCharts);
+} else {
+    renderDashboardCharts();
+}
 </script>
 @endpush

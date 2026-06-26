@@ -38,7 +38,7 @@ class DashboardController extends Controller
             $produksiPending  = Produksi::where('status', 'draft')->count();
 
             // Data grafik produksi 30 hari terakhir
-            $grafikProduksi = Produksi::selectRaw('DATE(tanggal_produksi) as tanggal, SUM(jumlah_bersih) as total')
+            $grafikProduksi = Produksi::selectRaw('DATE(tanggal_produksi) as tanggal, SUM(jumlah_bersih) as bersih, SUM(jumlah_gagal) as gagal')
                                 ->where('tanggal_produksi', '>=', now()->subDays(30))
                                 ->groupBy('tanggal')
                                 ->orderBy('tanggal')
@@ -48,8 +48,27 @@ class DashboardController extends Controller
             $grafikPengeluaran = Pengeluaran::selectRaw('kategori_pengeluaran_id, SUM(jumlah) as total')
                                     ->with('kategori')
                                     ->whereMonth('tanggal_pengeluaran', now()->month)
+                                    ->whereYear('tanggal_pengeluaran', now()->year)
                                     ->groupBy('kategori_pengeluaran_id')
                                     ->get();
+
+            // Data grafik arus kas / performa keuangan 6 bulan terakhir
+            $grafikKeuangan = collect();
+            for ($i = 5; $i >= 0; $i--) {
+                $date = now()->subMonths($i);
+                $m = $date->month;
+                $y = $date->year;
+
+                $prodBulan = Produksi::with('produk')->whereMonth('tanggal_produksi', $m)->whereYear('tanggal_produksi', $y)->get();
+                $pemasukan = $prodBulan->sum(fn($p) => $p->jumlah_bersih * ($p->produk->harga_estimasi ?? 0));
+                $pengeluaran = Pengeluaran::whereMonth('tanggal_pengeluaran', $m)->whereYear('tanggal_pengeluaran', $y)->sum('jumlah');
+
+                $grafikKeuangan->push([
+                    'bulan'       => $date->format('M Y'),
+                    'pemasukan'   => $pemasukan,
+                    'pengeluaran' => $pengeluaran,
+                ]);
+            }
 
             $produksiTerbaru = Produksi::with(['produk', 'karyawan'])->orderBy('created_at', 'desc')->limit(5)->get();
 
@@ -57,7 +76,7 @@ class DashboardController extends Controller
                 'totalProduksiHariIni', 'jumlahStokProduk', 'totalPengeluaranBulan',
                 'estimasiPendapatanBulan', 'labaSementara', 'jumlahTransaksiPengeluaran',
                 'produkStokRendah', 'produksiPending', 'grafikProduksi', 'grafikPengeluaran',
-                'produksiTerbaru'
+                'grafikKeuangan', 'produksiTerbaru'
             ));
         } else {
             // Dashboard Karyawan
