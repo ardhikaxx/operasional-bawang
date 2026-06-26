@@ -19,36 +19,36 @@ class DatabaseSeeder extends Seeder
     {
         // 1. Seed Users (Owner & Karyawan)
         $owner = User::create([
-            'name'      => 'Yanuar Ardhika R.U (Owner)',
-            'username'  => 'owner',
-            'email'     => 'owner@sumberbawang.com',
+            'name'      => 'admin',
+            'username'  => 'admin',
+            'email'     => 'admin@gmail.com',
             'password'  => Hash::make('password'),
             'role'      => 'owner',
             'is_active' => true,
         ]);
 
         $karyawan1 = User::create([
-            'name'      => 'Ahmad Sodikin (Kepala Produksi)',
+            'name'      => 'Ahmad Sodikin',
             'username'  => 'ahmad_prod',
-            'email'     => 'ahmad@sumberbawang.com',
+            'email'     => 'ahmad@gmail.com',
             'password'  => Hash::make('password'),
             'role'      => 'karyawan',
             'is_active' => true,
         ]);
 
         $karyawan2 = User::create([
-            'name'      => 'Siti Rahmawati (Admin Gudang)',
+            'name'      => 'Siti Rahmawati',
             'username'  => 'siti_admin',
-            'email'     => 'siti@sumberbawang.com',
+            'email'     => 'siti@gmail.com',
             'password'  => Hash::make('password'),
             'role'      => 'karyawan',
             'is_active' => true,
         ]);
 
         $karyawan3 = User::create([
-            'name'      => 'Budi Santoso (Operator Mesin)',
+            'name'      => 'Budi Santoso',
             'username'  => 'budi_ops',
-            'email'     => 'budi@sumberbawang.com',
+            'email'     => 'budi@gmail.com',
             'password'  => Hash::make('password'),
             'role'      => 'karyawan',
             'is_active' => true,
