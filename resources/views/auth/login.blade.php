@@ -6,8 +6,8 @@
         <div class="bg-primary-light text-primary rounded-circle d-inline-flex align-items-center justify-content-center p-3 mb-3" style="width: 64px; height: 64px;">
             <i class="fas fa-industry fa-2x"></i>
         </div>
-        <h4 class="fw-bold mb-1" style="color: var(--color-primary-dark);">SISTEM PRODUKSI & KEUANGAN</h4>
-        <p class="text-muted small mb-0">UD. Sumber Bawang Timur</p>
+        <h4 class="fw-bold mb-1" style="color: var(--color-primary-dark);">UD. SUMBER BAWANG TIMUR</h4>
+        <p class="text-muted small mb-0">Sistem Produksi & Keuangan</p>
     </div>
 
     <form method="POST" action="{{ route('login') }}" id="form-login">
