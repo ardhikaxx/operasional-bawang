@@ -1,4 +1,4 @@
-# Sistem Informasi Produksi dan Keuangan Terintegrasi (Profin-Web)
+# Sistem Informasi Produksi dan Keuangan Terintegrasi (operasional-bawang)
 ### UD. Sumber Bawang Timur
 
 ![Laravel 12](https://img.shields.io/badge/Laravel-12.x-FF2D20?style=for-the-badge&logo=laravel&logoColor=white)
@@ -10,7 +10,7 @@
 
 ## 📖 Tentang Sistem
 
-**Profin-Web** adalah Sistem Informasi Produksi dan Keuangan Terintegrasi yang dibangun khusus untuk **UD. Sumber Bawang Timur**. Sistem ini menghubungkan seluruh aktivitas pencatatan produksi harian dengan arus transaksi keuangan secara otomatis. Setiap input hasil produksi dan pengeluaran operasional di lapangan langsung terakumulasi secara *real-time* ke dalam buku besar dan laporan keuangan usaha.
+**operasional-bawang** adalah Sistem Informasi Produksi dan Keuangan Terintegrasi yang dibangun khusus untuk **UD. Sumber Bawang Timur**. Sistem ini menghubungkan seluruh aktivitas pencatatan produksi harian dengan arus transaksi keuangan secara otomatis. Setiap input hasil produksi dan pengeluaran operasional di lapangan langsung terakumulasi secara *real-time* ke dalam buku besar dan laporan keuangan usaha.
 
 ### Masalah yang Diselesaikan:
 - ❌ Pencatatan manual menggunakan buku tulis fisik yang rawan hilang dan rusak.
@@ -88,8 +88,8 @@ Sistem ini menganut filosofi **Simpel, Fungsional, dan Konsisten**:
 
 1. **Clone Repositori & Masuk Direktori**
    ```bash
-   git clone https://github.com/ardhikaxx/profin-web.git
-   cd profin-web
+   git clone https://github.com/ardhikaxx/operasional-bawang.git
+   cd operasional-bawang
    ```
 
 2. **Install Dependensi PHP & JS**
@@ -108,7 +108,7 @@ Sistem ini menganut filosofi **Simpel, Fungsional, dan Konsisten**:
    DB_CONNECTION=mysql
    DB_HOST=127.0.0.1
    DB_PORT=3306
-   DB_DATABASE=profin_web
+   DB_DATABASE=operasional-bawang_web
    DB_USERNAME=root
    DB_PASSWORD=
    ```
