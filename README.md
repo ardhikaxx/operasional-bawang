@@ -1,4 +1,4 @@
-# Sistem Informasi Produksi dan Keuangan Terintegrasi (operasional-bawang)
+﻿# Sistem Informasi Produksi dan Keuangan Terintegrasi (operasional-bawang)
 ### UD. Sumber Bawang Timur
 
 ![Laravel 12](https://img.shields.io/badge/Laravel-12.x-FF2D20?style=for-the-badge&logo=laravel&logoColor=white)
@@ -156,7 +156,7 @@ Jika project ini bermanfaat, Anda dapat mendukung pengembangan selanjutnya melal
 
 <div align="center">
 
-![QRIS](public/assets/qris.png)
+<img src="public/assets/qris.png" alt="QRIS" width="250" />
 
 **Scan QRIS di atas untuk berdonasi**
 
